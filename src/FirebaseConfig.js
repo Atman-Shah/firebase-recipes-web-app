@@ -11,6 +11,7 @@ const config = {
 };
 
 if (!firebase.apps.length) {
+  console.log(config);
   firebase.initializeApp(config);
 }
 
