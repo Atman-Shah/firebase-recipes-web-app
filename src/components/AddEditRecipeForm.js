@@ -33,7 +33,7 @@ function AddEditRecipeForm({ handleAddRecipe }) {
   }
 
   function handleAddIngredient(e) {
-    if (e.key && e.key != "Enter") {
+    if (e.key && e.key !== "Enter") {
       return;
     }
 
