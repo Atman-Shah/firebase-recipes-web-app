@@ -69,6 +69,41 @@ function AddEditRecipeForm({ handleAddRecipe }) {
           </label>
         </div>
       </div>
+      <div className="ingredients-list">
+        <h3 className="text-center">Ingredients</h3>
+        <table className="ingredients-table">
+          <thead>
+            <tr>
+              <th className="table-header">Ingredients</th>
+              <th className="table-header">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ingredients && ingredients.length > 0
+              ? ingredients.map((ingredient) => {
+                  return (
+                    <tr key={ingredient}>
+                      <td className="table-data text-center">{ingredient}</td>
+                      <td className="ingredient-delete-box">
+                        <button
+                          type="button"
+                          className="secondary-button ingredient-delete-button"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
+              : null}
+          </tbody>
+        </table>
+        {ingredients && ingredients.length === 0 ? (
+          <h3 className="text-center no-ingredients">
+            No Ingredients Added Yet
+          </h3>
+        ) : null}
+      </div>
     </form>
   );
 }
