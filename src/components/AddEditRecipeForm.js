@@ -10,6 +10,22 @@ function AddEditRecipeForm({ handleAddRecipe }) {
   const [ingredients, setIngredients] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
 
+  function handleAddIngredient(e) {
+    if (e.key && e.key != "Enter") {
+      return;
+    }
+
+    e.preventDefault();
+
+    if (!ingredientName) {
+      alert("Missing ingredient field, please double check!!");
+      return;
+    }
+
+    setIngredients([...ingredients, ingredientName]);
+    setIngredientName("");
+  }
+
   return (
     <form className="add-edit-recipe-form-container">
       <h2>Add a new recipe</h2>
@@ -103,6 +119,26 @@ function AddEditRecipeForm({ handleAddRecipe }) {
             No Ingredients Added Yet
           </h3>
         ) : null}
+        <div className="ingredient-form">
+          <label className="ingredient-label">
+            Ingredient:
+            <input
+              type="text"
+              value={ingredientName}
+              onChange={(e) => setIngredientName(e.target.value)}
+              onKeyDown={handleAddIngredient}
+              className="input-text"
+              placeholder="1 cup of sugar"
+            />
+          </label>
+          <button
+            type="button"
+            className="primary-button add-ingredient-button"
+            onClick={handleAddIngredient}
+          >
+            Add Ingredient
+          </button>
+        </div>
       </div>
     </form>
   );
