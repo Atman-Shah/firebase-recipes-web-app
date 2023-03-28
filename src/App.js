@@ -72,7 +72,7 @@ function App() {
       alert(error.message);
     }
   }
-
+  console.log(recipes.length);
   return (
     <div className="App">
       <div className="title-row">
@@ -80,6 +80,27 @@ function App() {
         <LoginForm existingUser={user}></LoginForm>
       </div>
       <div className="main">
+        <div className="center">
+          <div className="recipe-list-box">
+            {recipes && recipes.length > 0 ? (
+              <div className="recipe-list">
+                {recipes.map((recipe) => {
+                  return (
+                    <div className="recipe-card" key={recipe.id}>
+                      <div className="recipe-name">{recipe.name}</div>
+                      <div className="recipe-field">
+                        Category: {recipe.category}
+                      </div>
+                      <div className="recipe-field">
+                        Publish Date: {recipe.publishDate.toString()}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : null}
+          </div>
+        </div>
         {user ? (
           <AddEditRecipeForm
             handleAddRecipe={handleAddRecipe}
