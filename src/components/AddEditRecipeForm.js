@@ -84,7 +84,7 @@ function AddEditRecipeForm({ handleAddRecipe }) {
                 Desserts & Baked Goods
               </option>
               <option value="indianFood">Indian Food</option>
-              <option value="vegetables">Vegetable</option>
+              <option value="vegetables">Vegetables</option>
             </select>
           </label>
 

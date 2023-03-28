@@ -72,7 +72,32 @@ function App() {
       alert(error.message);
     }
   }
-  console.log(recipes.length);
+
+  function lookupCategoryLabel(categoryKey) {
+    const categories = {
+      breadsSandwitchesAndPizza: "Breads, Sandwitches and Pizza",
+      breakfast: "Breakfast",
+      dessertsAndBakedGoods: "Desserts & Baked Goods",
+      indianFood: "Indian Food",
+      vegetables: "Vegetables",
+    };
+
+    // We can't write categories.categoryKey because categoryKey will a string (e.g vegetables)
+    // this is how we overcome this by writing it this way
+    const label = categories[categoryKey];
+
+    return label;
+  }
+
+  function formatDate(date) {
+    const day = date.getUTCDate();
+    const month = date.getUTCMonth() + 1;
+    const year = date.getFullYear();
+    const dateString = `${day}-${month}-${year}`;
+
+    return dateString;
+  }
+
   return (
     <div className="App">
       <div className="title-row">
@@ -89,10 +114,10 @@ function App() {
                     <div className="recipe-card" key={recipe.id}>
                       <div className="recipe-name">{recipe.name}</div>
                       <div className="recipe-field">
-                        Category: {recipe.category}
+                        Category: {lookupCategoryLabel(recipe.category)}
                       </div>
                       <div className="recipe-field">
-                        Publish Date: {recipe.publishDate.toString()}
+                        Publish Date: {formatDate(recipe.publishDate)}
                       </div>
                     </div>
                   );
