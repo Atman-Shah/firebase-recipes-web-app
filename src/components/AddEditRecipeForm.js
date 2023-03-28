@@ -10,6 +10,28 @@ function AddEditRecipeForm({ handleAddRecipe }) {
   const [ingredients, setIngredients] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
 
+  function handleRecipeFormSubmit(e) {
+    e.preventDefault();
+
+    if (ingredients.length === 0) {
+      alert("Ingredients can't be empty atleast add 1 ingredient");
+      return;
+    }
+
+    const isPublished = new Date(publishDate) <= new Date() ? true : false;
+
+    const newRecipe = {
+      name,
+      category,
+      directions,
+      publishDate: new Date(publishDate),
+      isPublished,
+      ingredients,
+    };
+
+    handleAddRecipe(newRecipe);
+  }
+
   function handleAddIngredient(e) {
     if (e.key && e.key != "Enter") {
       return;
@@ -27,7 +49,10 @@ function AddEditRecipeForm({ handleAddRecipe }) {
   }
 
   return (
-    <form className="add-edit-recipe-form-container">
+    <form
+      onSubmit={handleRecipeFormSubmit}
+      className="add-edit-recipe-form-container"
+    >
       <h2>Add a new recipe</h2>
       <div className="top-form-section">
         <div className="fields">
@@ -139,6 +164,11 @@ function AddEditRecipeForm({ handleAddRecipe }) {
             Add Ingredient
           </button>
         </div>
+      </div>
+      <div className="action-buttons">
+        <button type="submit" className="primary-button action-button">
+          Create Recipe
+        </button>
       </div>
     </form>
   );
