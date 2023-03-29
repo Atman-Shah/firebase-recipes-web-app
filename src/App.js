@@ -11,6 +11,7 @@ function App() {
   const [currentRecipe, setCurrentRecipe] = useState(null);
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [categoryFilter, setCategoryFilter] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -27,12 +28,20 @@ function App() {
         setIsLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user, categoryFilter]);
 
   FirebaseAuthService.subscribeToAuthChanges(setUser);
 
   async function fetchRecipes() {
     const queries = [];
+
+    if (categoryFilter) {
+      queries.push({
+        field: "category",
+        condition: "==",
+        value: categoryFilter,
+      });
+    }
 
     if (!user) {
       queries.push({
@@ -182,6 +191,28 @@ function App() {
         <LoginForm existingUser={user}></LoginForm>
       </div>
       <div className="main">
+        <div className="row filters">
+          <label className="recipe-label input-label">
+            Category:
+            <select
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              className="select"
+              required
+            >
+              <option value=""></option>
+              <option value="breadsSandwitchesAndPizza">
+                Breads, Sandwitches and Pizza
+              </option>
+              <option value="breakfast">Breakfast</option>
+              <option value="dessertsAndBakedGoods">
+                Desserts & Baked Goods
+              </option>
+              <option value="indianFood">Indian Food</option>
+              <option value="vegetables">Vegetables</option>
+            </select>
+          </label>
+        </div>
         <div className="center">
           <div className="recipe-list-box">
             {isLoading ? (
