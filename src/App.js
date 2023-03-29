@@ -104,100 +104,100 @@ function App() {
     } catch (error) {
       alert(error.message);
     }
-
-    function handleEditRecipeClick(recipeId) {
-      const selectedRecipe = recipes.find((recipe) => {
-        return recipe.id === recipeId;
-      });
-
-      if (selectedRecipe) {
-        setCurrentRecipe(selectedRecipe);
-        window.scrollTo(0, document.body.scrollHeight);
-      }
-    }
-
-    function handleEditRecipeCancel() {
-      setCurrentRecipe(null);
-    }
-
-    function lookupCategoryLabel(categoryKey) {
-      const categories = {
-        breadsSandwitchesAndPizza: "Breads, Sandwitches and Pizza",
-        breakfast: "Breakfast",
-        dessertsAndBakedGoods: "Desserts & Baked Goods",
-        indianFood: "Indian Food",
-        vegetables: "Vegetables",
-      };
-
-      // We can't write categories.categoryKey because categoryKey will a string (e.g vegetables)
-      // this is how we overcome this by writing it this way
-      const label = categories[categoryKey];
-
-      return label;
-    }
-
-    function formatDate(date) {
-      const day = date.getUTCDate();
-      const month = date.getUTCMonth() + 1;
-      const year = date.getFullYear();
-      const dateString = `${day}-${month}-${year}`;
-
-      return dateString;
-    }
-
-    return (
-      <div className="App">
-        <div className="title-row">
-          <h1 className="title">Firebase Recipes</h1>
-          <LoginForm existingUser={user}></LoginForm>
-        </div>
-        <div className="main">
-          <div className="center">
-            <div className="recipe-list-box">
-              {recipes && recipes.length > 0 ? (
-                <div className="recipe-list">
-                  {recipes.map((recipe) => {
-                    return (
-                      <div className="recipe-card" key={recipe.id}>
-                        {recipe.isPublished === false ? (
-                          <div className="unpublished">UNPUBLISHED</div>
-                        ) : null}
-                        <div className="recipe-name">{recipe.name}</div>
-                        <div className="recipe-field">
-                          Category: {lookupCategoryLabel(recipe.category)}
-                        </div>
-                        <div className="recipe-field">
-                          Publish Date: {formatDate(recipe.publishDate)}
-                        </div>
-                        {user ? (
-                          <button
-                            type="button"
-                            onClick={() => {
-                              handleEditRecipeClick(recipe.id);
-                            }}
-                            className="primary-button edit-button"
-                          >
-                            Edit
-                          </button>
-                        ) : null}
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : null}
-            </div>
-          </div>
-          {user ? (
-            <AddEditRecipeForm
-              handleAddRecipe={handleAddRecipe}
-              exhistingRecipe={currentRecipe}
-              handleUpdateRecipe={handleUpdateRecipe}
-              handleEditRecipeCancel={handleEditRecipeCancel}
-            ></AddEditRecipeForm>
-          ) : null}
-        </div>
-      </div>
-    );
   }
+  function handleEditRecipeClick(recipeId) {
+    const selectedRecipe = recipes.find((recipe) => {
+      return recipe.id === recipeId;
+    });
+
+    if (selectedRecipe) {
+      setCurrentRecipe(selectedRecipe);
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+  }
+
+  function handleEditRecipeCancel() {
+    setCurrentRecipe(null);
+  }
+
+  function lookupCategoryLabel(categoryKey) {
+    const categories = {
+      breadsSandwitchesAndPizza: "Breads, Sandwitches and Pizza",
+      breakfast: "Breakfast",
+      dessertsAndBakedGoods: "Desserts & Baked Goods",
+      indianFood: "Indian Food",
+      vegetables: "Vegetables",
+    };
+
+    // We can't write categories.categoryKey because categoryKey will a string (e.g vegetables)
+    // this is how we overcome this by writing it this way
+    const label = categories[categoryKey];
+
+    return label;
+  }
+
+  function formatDate(date) {
+    const day = date.getUTCDate();
+    const month = date.getUTCMonth() + 1;
+    const year = date.getFullYear();
+    const dateString = `${day}-${month}-${year}`;
+
+    return dateString;
+  }
+
+  return (
+    <div className="App">
+      <div className="title-row">
+        <h1 className="title">Firebase Recipes</h1>
+        <LoginForm existingUser={user}></LoginForm>
+      </div>
+      <div className="main">
+        <div className="center">
+          <div className="recipe-list-box">
+            {recipes && recipes.length > 0 ? (
+              <div className="recipe-list">
+                {recipes.map((recipe) => {
+                  return (
+                    <div className="recipe-card" key={recipe.id}>
+                      {recipe.isPublished === false ? (
+                        <div className="unpublished">UNPUBLISHED</div>
+                      ) : null}
+                      <div className="recipe-name">{recipe.name}</div>
+                      <div className="recipe-field">
+                        Category: {lookupCategoryLabel(recipe.category)}
+                      </div>
+                      <div className="recipe-field">
+                        Publish Date: {formatDate(recipe.publishDate)}
+                      </div>
+                      {user ? (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleEditRecipeClick(recipe.id);
+                          }}
+                          className="primary-button edit-button"
+                        >
+                          Edit
+                        </button>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : null}
+          </div>
+        </div>
+        {user ? (
+          <AddEditRecipeForm
+            handleAddRecipe={handleAddRecipe}
+            exhistingRecipe={currentRecipe}
+            handleUpdateRecipe={handleUpdateRecipe}
+            handleEditRecipeCancel={handleEditRecipeCancel}
+          ></AddEditRecipeForm>
+        ) : null}
+      </div>
+    </div>
+  );
 }
+
 export default App;
