@@ -6,7 +6,6 @@ function AddEditRecipeForm({
   handleUpdateRecipe,
   handleEditRecipeCancel,
 }) {
-  console.log(exhistingRecipe ? exhistingRecipe.name : "no name");
   useEffect(() => {
     if (exhistingRecipe) {
       setName(exhistingRecipe.name);
