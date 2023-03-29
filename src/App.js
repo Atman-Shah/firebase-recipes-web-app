@@ -105,6 +105,7 @@ function App() {
       alert(error.message);
     }
   }
+
   function handleEditRecipeClick(recipeId) {
     const selectedRecipe = recipes.find((recipe) => {
       return recipe.id === recipeId;
@@ -189,8 +190,8 @@ function App() {
         </div>
         {user ? (
           <AddEditRecipeForm
-            handleAddRecipe={handleAddRecipe}
             exhistingRecipe={currentRecipe}
+            handleAddRecipe={handleAddRecipe}
             handleUpdateRecipe={handleUpdateRecipe}
             handleEditRecipeCancel={handleEditRecipeCancel}
           ></AddEditRecipeForm>
