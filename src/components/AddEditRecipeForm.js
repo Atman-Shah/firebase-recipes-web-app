@@ -4,6 +4,7 @@ function AddEditRecipeForm({
   handleAddRecipe,
   exhistingRecipe,
   handleUpdateRecipe,
+  handleDeleteRecipe,
   handleEditRecipeCancel,
 }) {
   useEffect(() => {
@@ -208,6 +209,13 @@ function AddEditRecipeForm({
               className="primary-button action-button"
             >
               Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => handleDeleteRecipe(exhistingRecipe.id)}
+              className="primary-button action-button"
+            >
+              Delete
             </button>
           </>
         ) : null}
