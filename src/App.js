@@ -88,7 +88,7 @@ function App() {
 
       fetchedRecipes = [...newRecipes];
     } catch (error) {
-      console.eroor(error.message);
+      console.error(error.message);
       throw error;
     }
 
