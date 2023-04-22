@@ -32,6 +32,8 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, categoryFilter, orderBy, recipesPerPage]);
 
+  // When firebase detects that there's a change to the auth,
+  // it's gonna call the setUser function with the user that gets passed in
   FirebaseAuthService.subscribeToAuthChanges(setUser);
 
   async function fetchRecipes(cursorId = "") {

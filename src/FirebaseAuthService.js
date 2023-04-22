@@ -24,12 +24,17 @@ const loginWithGoogle = () => {
   return auth.signInWithPopup(provider);
 };
 
+// subscribrToAuthChanges is a function to monitor Auth changes.
+// handleAuthChanges is a callback function,
+// which'll be executed when firebase auth changes
+
 const subscribeToAuthChanges = (handleAuthChanges) => {
   auth.onAuthStateChanged((user) => {
     handleAuthChanges(user);
   });
 };
 
+// Wrapping everything is an object to export
 const FirebaseAuthService = {
   registerUser,
   loginUser,
