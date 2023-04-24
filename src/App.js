@@ -15,6 +15,8 @@ function App() {
   const [orderBy, setOrderBy] = useState("publishDateDesc");
   const [recipesPerPage, setRecipesPerPage] = useState(3);
 
+  // The use effect is a special react hook specifies a list of dependencies
+  // whenever one of these dependencies changes, this bit of code is going to get run.
   useEffect(() => {
     setIsLoading(true);
 
@@ -344,6 +346,7 @@ function App() {
             </div>
           </>
         ) : null}
+        {/* Shows the new recipe form only when the user is logged in */}
         {user ? (
           <AddEditRecipeForm
             exhistingRecipe={currentRecipe}

@@ -57,12 +57,17 @@ function AddEditRecipeForm({
   }
 
   function handleAddIngredient(e) {
+    //making sure that the enter key has been pressed
     if (e.key && e.key !== "Enter") {
       return;
     }
 
     e.preventDefault();
 
+    // making sure that ingredientname exists or not
+    //This is a very common pattern in JavaScript,
+    // which is that you do validation at the beginning of your function and
+    //you bail out early if something is incorrect.
     if (!ingredientName) {
       alert("Missing ingredient field, please double check!!");
       return;
@@ -152,6 +157,7 @@ function AddEditRecipeForm({
             </tr>
           </thead>
           <tbody>
+            {/* The map function is the most common way to generate multiple lists of things in react. */}
             {ingredients && ingredients.length > 0
               ? ingredients.map((ingredient) => {
                   return (
