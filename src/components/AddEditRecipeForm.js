@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ImageUploadPreview from "./ImageUploadPreview";
 
 function AddEditRecipeForm({
   handleAddRecipe,
@@ -14,6 +15,7 @@ function AddEditRecipeForm({
       setDirections(exhistingRecipe.directions);
       setPublishDate(exhistingRecipe.publishDate.toISOString().split("T")[0]);
       setIngredients(exhistingRecipe.ingredients);
+      setImageUrl(exhistingRecipe.imageUrl);
     } else {
       resetForm();
     }
@@ -27,12 +29,18 @@ function AddEditRecipeForm({
   const [directions, setDirections] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   function handleRecipeFormSubmit(e) {
     e.preventDefault();
 
     if (ingredients.length === 0) {
       alert("Ingredients can't be empty atleast add 1 ingredient");
+      return;
+    }
+
+    if (!imageUrl) {
+      alert("Missing recipe image. Please add a recipe image.");
       return;
     }
 
@@ -45,6 +53,7 @@ function AddEditRecipeForm({
       publishDate: new Date(publishDate),
       isPublished,
       ingredients,
+      imageUrl,
     };
 
     if (exhistingRecipe) {
@@ -83,6 +92,7 @@ function AddEditRecipeForm({
     setDirections("");
     setPublishDate("");
     setIngredients([]);
+    setImageUrl("");
   }
 
   return (
@@ -92,6 +102,15 @@ function AddEditRecipeForm({
     >
       {exhistingRecipe ? <h2>Update the Recipe</h2> : <h2>Add a New Recipe</h2>}
       <div className="top-form-section">
+        <div className="image-input-box">
+          Recipe Image
+          <ImageUploadPreview
+            basePath="recipes"
+            existingImageUrl={imageUrl}
+            handleUploadFinish={(downloadUrl) => setImageUrl(downloadUrl)}
+            handleUploadCancel={() => setImageUrl("")}
+          ></ImageUploadPreview>
+        </div>
         <div className="fields">
           <label className="recipe-label input-label">
             Recipe Name:
