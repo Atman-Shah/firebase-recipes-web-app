@@ -61,7 +61,41 @@ function ImageUploadPreview({
 
   return (
     <div className="image-upload-preview-container">
-      hello from image upload preview
+      {/* "Accept" is some basic validation that the input element provides when the user clicks 
+        on the select file button, then it will filter down their files in their little dialogue box,
+        there to show only files that match this type. However, it's important to know that all files, 
+        select dialog boxes, have the ability to override this little accept right here to pick 
+        any file that they want. */}
+      {/* "Hidden" is a special attribute built into HTML that will hide it from being viewed. 
+        However, it still exists on the page. */}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleFileChanged}
+        ref={fileInputRef}
+        hidden={uploadProgress > -1 || imageUrl}
+      />
+      {!imageUrl && uploadProgress > -1 ? (
+        <div>
+          <label htmlFor="file">Upload Progress:</label>
+          <progress id="file" value={uploadProgress} max="100">
+            {uploadProgress}%
+          </progress>
+          <span>{uploadProgress}%</span>
+        </div>
+      ) : null}
+      {imageUrl ? (
+        <div className="image-preview">
+          <img src={imageUrl} alt={imageUrl} className="image" />
+          <button
+            type="button"
+            onClick={handleCancelImageClick}
+            className="primary-button"
+          >
+            Cancel Image
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }
