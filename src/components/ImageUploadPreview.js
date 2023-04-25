@@ -18,6 +18,7 @@ function ImageUploadPreview({
     if (existingImageUrl) {
       setImageUrl(existingImageUrl);
     } else {
+      setUploadProgress(-1);
       setImageUrl("");
       fileInputRef.current.value = null;
     }
