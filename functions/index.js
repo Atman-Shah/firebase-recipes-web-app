@@ -117,3 +117,41 @@ exports.onDeleteRecipe = functions.firestore
       }
     }
   });
+
+const runtimeOptions = {
+  timeoutSeconds: 300,
+  memory: "256MB",
+};
+
+exports.dailyCheckRecipePublishDate = functions
+  .runWith(runtimeOptions)
+  .pubsub.schedule("0 0 * * *")
+  .onRun(async () => {
+    console.log("dailyCheckRecipePublishDate() called - time to check");
+
+    // So this is going to get all of the recipes from our Firestar recipe collection,
+    // where the published date is set to false only. This is going to limit the
+    // number of reads from our collection rather than just getting all of the documents
+    //from the collection. Instead, we're limiting it to just the unpublished recipes.
+    const snapshot = await firestore
+      .collection("recipes")
+      .where("isPublished", "==", false)
+      .get();
+
+    snapshot.forEach(async (doc) => {
+      const data = doc.data();
+      const now = Date.now() / 1000;
+      const isPublished = data.publishDate_seconds <= now ? true : false;
+
+      if (isPublished) {
+        console.log(`Recipe: ${data.name} is now published!`);
+
+        firestore
+          .collection("recipes")
+          .doc(doc.id)
+          .set({ isPublished }, { merge: true });
+      }
+    });
+  });
+
+console.log("SERVER STARTED!");
